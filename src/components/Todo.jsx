@@ -1,15 +1,21 @@
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { todosAction } from "../redux/slices/todosApiSlice";
+import Button from "./ui/Button";
 
 const Todo = (props) => {
-  const dispatch = useDispatch();
-
   const { todo } = props;
+
+  const dispatch = useDispatch();
 
   const toggleCheckedHandler = () => {
     dispatch(todosAction.actionToggleIsCompleted(todo.id));
   };
+
+  const deleteHandler = () => {
+    const id = todo.id;
+    dispatch(todosAction.actionDeleteTodo(id));
+  }
 
   return (
     <Container>
@@ -19,6 +25,7 @@ const Todo = (props) => {
         onClick={toggleCheckedHandler}
       />
       <Body checked={todo.isCompleted}>{todo.body}</Body>
+      <Button clickHandler={deleteHandler}>delete</Button>
     </Container>
   );
 };

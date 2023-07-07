@@ -18,6 +18,14 @@ const todosApiSlice = createSlice({
       const id = action.payload;
       const todo = state.todos.find(todo => todo.id === id)
       todo.isCompleted = !todo.isCompleted
+    },
+    actionAddTodo(state, action) {
+      const todo = action.payload;
+      state.todos = [...state.todos, todo]
+    },
+    actionDeleteTodo(state, action) {
+      const id = action.payload;
+      state.todos = state.todos.filter(todo => todo.id !== id)
     }
   },
 });
