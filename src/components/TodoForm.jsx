@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import Button from "./ui/Button";
-import { todosAction } from "../redux/slices/todosApiSlice";
+import { addTodo } from "../redux/slices/todosApiSlice";
+
 
 const TodoForm = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,8 @@ const TodoForm = () => {
       body: todoStr,
       isCompleted: false,
     }
-    dispatch(todosAction.actionAddTodo(newTodo));
+
+    dispatch(addTodo(newTodo));
     setTodoStr('')
   };
 

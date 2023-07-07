@@ -1,21 +1,15 @@
 import { useEffect } from "react";
-import axios from "axios";
 
 import { RouterProvider } from "react-router-dom";
 import router from "./router";
-
-const URL =
-  "https://todolist-a15fc-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json";
+import { useDispatch } from "react-redux";
+import { fetchTodos } from "./redux/slices/todosApiSlice";
 
 function App() {
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await axios.get(URL);
-      const data = res.data;
-      return data;
-    };
+  const dispatch = useDispatch();
 
-    fetchData();
+  useEffect(() => {
+    dispatch(fetchTodos());
   }, []);
 
   return <RouterProvider router={router} />;
