@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import axios from "axios";
 
-import TodoList from "./components/TodoList";
-import TodoForm from "./components/TodoForm";
+import { RouterProvider } from "react-router-dom";
+import router from "./router";
 
 const URL =
   "https://todolist-a15fc-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json";
@@ -18,12 +18,7 @@ function App() {
     fetchData();
   }, []);
 
-  return (
-    <>
-      <TodoForm />
-      <TodoList />
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

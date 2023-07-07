@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { todosAction } from "../redux/slices/todosApiSlice";
 import Button from "./ui/Button";
+import { Link } from "react-router-dom";
 
 const Todo = (props) => {
   const { todo } = props;
@@ -15,7 +16,7 @@ const Todo = (props) => {
   const deleteHandler = () => {
     const id = todo.id;
     dispatch(todosAction.actionDeleteTodo(id));
-  }
+  };
 
   return (
     <Container>
@@ -24,7 +25,9 @@ const Todo = (props) => {
         checked={todo.isCompleted}
         onClick={toggleCheckedHandler}
       />
-      <Body checked={todo.isCompleted}>{todo.body}</Body>
+      <Link to={`/todos/${todo.id}`} state={{ todo: todo}}>
+        <Body checked={todo.isCompleted}>{todo.body}</Body>
+      </Link>
       <Button clickHandler={deleteHandler}>delete</Button>
     </Container>
   );
@@ -37,6 +40,6 @@ const Container = styled.div`
 `;
 
 const Body = styled.span`
-  text-decoration: ${props => props.checked ? 'line-through' : 'none'};
-  color: ${props => props.checked ? 'lightgray' : 'black'};
+  text-decoration: ${(props) => (props.checked ? "line-through" : "none")};
+  color: ${(props) => (props.checked ? "lightgray" : "black")};
 `;

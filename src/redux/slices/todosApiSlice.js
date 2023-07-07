@@ -21,11 +21,16 @@ const todosApiSlice = createSlice({
     },
     actionAddTodo(state, action) {
       const todo = action.payload;
-      state.todos = [...state.todos, todo]
+      state.todos.push(todo)
     },
     actionDeleteTodo(state, action) {
       const id = action.payload;
       state.todos = state.todos.filter(todo => todo.id !== id)
+    },
+    actionEditTodo(state, action) {
+      const { id, body } = action.payload;
+      const todo = state.todos.find(todo => todo.id === id)
+      todo.body = body;
     }
   },
 });
