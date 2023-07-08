@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import Button from "./ui/Button";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { todosAction } from "../redux/slices/todosApiSlice";
+import { editTodo, todosAction } from "../redux/slices/todosApiSlice";
 
 const TodoDetail = () => {
   const location = useLocation();
@@ -26,7 +26,7 @@ const TodoDetail = () => {
       id: todo.id,
       body: todoStr,
     }
-    dispatch(todosAction.actionEditTodo(updated))
+    dispatch(editTodo(updated))
     setIsEditing(false);
   }
 

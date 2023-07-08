@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import { todosAction } from "../redux/slices/todosApiSlice";
+import { deleteTodo, todosAction } from "../redux/slices/todosApiSlice";
 import Button from "./ui/Button";
 import { Link } from "react-router-dom";
 
@@ -16,7 +16,7 @@ const Todo = (props) => {
 
   const deleteHandler = () => {
     const id = todo.id;
-    dispatch(todosAction.actionDeleteTodo(id));
+    dispatch(deleteTodo(id));
   };
 
   return (

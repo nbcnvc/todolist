@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const URL =
-  "https://todolist-a15fc-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json";
+  "https://todolist-a15fc-default-rtdb.asia-southeast1.firebasedatabase.app";
 
 const NAMESPACE = "todosApi";
 
@@ -41,7 +41,8 @@ const todosApiSlice = createSlice({
 
 export const fetchTodos = () => {
   return async (dispatch) => {
-    const res = await axios.get(URL);
+    const res = await axios.get(URL + "/todos.json");
+    if (!res.data) return;
     const arrayData = Object.keys(res.data).map((key) => ({
       id: key,
       ...res.data[key],
@@ -53,10 +54,29 @@ export const fetchTodos = () => {
 
 export const addTodo = (newTodo) => {
   return async (dispatch) => {
-    const res = await axios.post(URL, newTodo);
+    const res = await axios.post(URL + "/todos.json", newTodo);
 
     newTodo.id = res.data.name;
     dispatch(todosAction.actionAddTodo(newTodo));
+  };
+};
+
+export const deleteTodo = (todoId) => {
+  return async (dispatch) => {
+    await axios.delete(URL + `/todos/${todoId}.json`);
+
+    dispatch(todosAction.actionDeleteTodo(todoId));
+  };
+};
+
+export const editTodo = (payload) => {
+  const { id, body } = payload;
+  return async (dispatch) => {
+    const data = {
+      body,
+    };
+    await axios.patch(URL + `/todos/${id}.json`, data);
+    dispatch(todosAction.actionEditTodo({ id, body }));
   };
 };
 
