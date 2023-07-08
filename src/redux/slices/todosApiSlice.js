@@ -15,7 +15,6 @@ const todosApiSlice = createSlice({
   initialState: initialState,
   reducers: {
     actionFetchData(state, action) {
-      console.log(3, action.payload);
       const fetchedTodos = action.payload;
       state.todos = fetchedTodos;
     },
@@ -54,11 +53,9 @@ export const fetchTodos = () => {
 
 export const addTodo = (newTodo) => {
   return async (dispatch) => {
-    console.log("여긴");
     const res = await axios.post(URL, newTodo);
 
     newTodo.id = res.data.name;
-    console.log(2, typeof newTodo);
     dispatch(todosAction.actionAddTodo(newTodo));
   };
 };
