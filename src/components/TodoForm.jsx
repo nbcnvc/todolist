@@ -15,6 +15,10 @@ const TodoForm = () => {
 
   const addTodoHandler = (e) => {
     e.preventDefault();
+    if (todoStr === '') {
+      alert('내용을 입력해 주세요.')
+      return
+    }
     const newTodo = {
       body: todoStr,
       isCompleted: false,
