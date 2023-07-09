@@ -4,10 +4,9 @@ import { useDispatch } from "react-redux";
 import Button from "./ui/Button";
 import { addTodo } from "../redux/slices/todosApiSlice";
 
-
 const TodoForm = () => {
   const dispatch = useDispatch();
-  const [todoStr, setTodoStr] = useState('')
+  const [todoStr, setTodoStr] = useState("");
 
   const changeTodoStrHandler = (e) => {
     setTodoStr(e.target.value);
@@ -15,17 +14,21 @@ const TodoForm = () => {
 
   const addTodoHandler = (e) => {
     e.preventDefault();
-    if (todoStr === '') {
-      alert('내용을 입력해 주세요.')
-      return
+    if (todoStr === "") {
+      alert("내용을 입력해 주세요.");
+      return;
+    }
+    if (todoStr.length < 10) {
+      alert("내용은 최소 10글자 이상이어야 합니다.");
+      return;
     }
     const newTodo = {
       body: todoStr,
       isCompleted: false,
-    }
+    };
 
     dispatch(addTodo(newTodo));
-    setTodoStr('')
+    setTodoStr("");
   };
 
   return (
